@@ -43,7 +43,7 @@ const OneToOnePage = () => {
 
     // Fetch initial messages from the backend when the component loads
     useEffect(() => {
-        socket.emit('joinGroup', { name });
+        socket.emit('joinGroup', { selectedUser });
 
         const fetchPrivateMessages = async (from, to) => {
             try {

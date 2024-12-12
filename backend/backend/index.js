@@ -39,13 +39,11 @@ app.get('/api/groupMessages', (req, res) => {
 app.get('/api/privateMessages/:from/:to', (req, res) => {
     const { from, to } = req.params;
     const messages = privateMessages.filter((msg) => msg.users.includes(from) && msg.users.includes(to));
-    console.log(messages, "0000000000",privateMessages)
     res.json(messages);
 });
 
 // Socket.io logic
 io.on('connection', (socket) => {
-    console.log('User connected:', socket.id);
 
     // Handle user joining
     socket.on('joinGroup', ({ name }, callback) => {
@@ -91,7 +89,6 @@ io.on('connection', (socket) => {
 
         const targetSocketId = userSockets[to];
         if (targetSocketId) {
-            console.log("Emitting private message to target:", to, targetSocketId);
             io.emit('privateMessage', newMessage);
         }
 
